@@ -1,0 +1,34 @@
+{
+    "name": "yoh/siler-ext",
+    "type": "library",
+    "description": "Siler (leocavalcante/siler) extensions (valitron +  meedo + php-jwt + config)",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1",
+        "leocavalcante/siler": ">=1.6"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^4.2"
+    },
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "SilerExt\\": "src/"
+        },
+        "files": [
+            "src/Config/Config.php",
+            "src/Database/Meedo.php",
+            "src/Http/Http.php",
+            "src/Normalizer/Normalizer.php",
+            "src/Security/Security.php",
+            "src/Validator/Valitron.php"
+        ]
+    },
+    "suggest": {
+        "vlucas/valitron": "Valitron is a simple, elegant, stand-alone validation library with NO dependencies",
+        "firebase/php-jwt": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP",
+        "catfan/Medoo": "The lightweight PHP database framework to accelerate development",
+        "twigphp/Twig": "Twig, the flexible, fast, and secure template language for PHP",
+        "twigphp/Twig-extensions": "Twig extensions"
+    }
+}
