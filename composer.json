@@ -27,8 +27,8 @@
     "suggest": {
         "vlucas/valitron": "Valitron is a simple, elegant, stand-alone validation library with NO dependencies",
         "firebase/php-jwt": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP",
-        "catfan/Medoo": "The lightweight PHP database framework to accelerate development",
-        "twigphp/Twig": "Twig, the flexible, fast, and secure template language for PHP",
-        "twigphp/Twig-extensions": "Twig extensions"
+        "catfan/medoo": "The lightweight PHP database framework to accelerate development",
+        "twig/twig": "Twig, the flexible, fast, and secure template language for PHP",
+        "twig/extensions": "Twig extensions"
     }
 }
