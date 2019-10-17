@@ -2,10 +2,23 @@
 
 namespace SilerExt\Normalizer;
 
-function normalizeDateTime(\DateTime $datetime): string {
-    return $datetime->format('c');
+function normalizeDateTime(?\DateTime $datetime): ?string {
+    return $datetime ? $datetime->format('c') : null;
 }
 
-function normalizeDate(\DateTime $datetime): string {
-    return $datetime->format('Y-m-d');
+function normalizeDate(?\DateTime $datetime): ?string {
+    return $datetime ? $datetime->format('Y-m-d') : null;
+}
+
+trait NormalizerTrait
+{
+    public static function normalizeArray(array $items = []): array
+    {
+        $normalizedArray = [];
+        foreach ($items as $item) {
+            $normalizedArray[] = self::normalize($item);
+        }
+
+        return $normalizedArray;
+    }
 }

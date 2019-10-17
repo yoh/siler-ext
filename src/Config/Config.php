@@ -7,6 +7,8 @@ use Siler\Twig;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig_Extensions_Extension_Text;
+use Whoops\Run as WhoopsRun;
+use Whoops\Handler\PrettyPageHandler as WhoopsPrettyPageHandler;
 
 function config(string $path) {
     $config = Container\get('config');
@@ -47,4 +49,12 @@ function initTwig() {
             }
         }));
     }
+}
+
+function initWhoops(string $editor = 'atom') {
+    $whoops = new WhoopsRun();
+    $whoopsHandler = new WhoopsPrettyPageHandler();
+    $whoopsHandler->setEditor($editor);
+    $whoops->prependHandler($whoopsHandler);
+    $whoops->register();
 }
