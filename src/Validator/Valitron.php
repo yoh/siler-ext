@@ -3,10 +3,16 @@
 namespace SilerExt\Validation;
 
 use SilerExt\Exception\ValidationException;
+use Siler\Http\Request;
 use Valitron\Validator as ValitronValidator;
 
 function validate(array $data, array $rules, ?Callable $callback = null): Validator {
-    $v = new Validator($data);
+    $locale = null;
+    if (in_array('fr', array_keys(Request\accepted_locales()), true)) {
+        $locale = 'fr';
+    }
+
+    $v = new Validator($data, null, $locale);
     $v->mapStringFieldsRules($rules);
     $v->validate();
 
