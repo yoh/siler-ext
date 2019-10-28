@@ -64,7 +64,7 @@ final class Validator extends ValitronValidator
             return array_map(function($fieldRule) {
                 $split = explode(':', $fieldRule);
                 [$validator, $options] = [$split[0], $split[1] ?? null];
-                if (!$options) {
+                if (is_null($options)) {
                     return $validator;
                 }
 
