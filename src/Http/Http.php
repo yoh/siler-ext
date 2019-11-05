@@ -5,6 +5,7 @@ namespace SilerExt\Http;
 use Siler\Container;
 use Siler\Http\Response;
 use function SilerExt\Config\{config};
+use function Siler\Http\{session as silerSession};
 
 function enableCors(string $origin = '*') {
     Response\header('Access-Control-Allow-Origin', $origin);
@@ -17,6 +18,17 @@ function finishRequest() {
     }
 
     runBgTasks();
+}
+
+function session(?string $key = null, $default = null, bool $autoClose = true) {
+    if (!Container\has("session") && !Container\get("session")) {
+        Container\set("session", session_start());
+        if ($autoClose) {
+            session_write_close();
+        }
+    }
+
+    return silerSession($key, $default);
 }
 
 /**

@@ -1,7 +1,7 @@
 {
     "name": "yoh/siler-ext",
     "type": "library",
-    "description": "Siler (leocavalcante/siler) extensions (valitron +  meedo + php-jwt + config)",
+    "description": "Siler (leocavalcante/siler) extensions (valitron +  medoo + php-jwt + config)",
     "license": "MIT",
     "require": {
         "php": ">=7.1",
@@ -17,7 +17,7 @@
         },
         "files": [
             "src/Config/Config.php",
-            "src/Database/Meedo.php",
+            "src/Database/Medoo.php",
             "src/Http/Http.php",
             "src/Normalizer/Normalizer.php",
             "src/Security/Security.php",

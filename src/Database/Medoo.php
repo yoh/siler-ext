@@ -20,7 +20,7 @@ function medoo($connection = 'default'): SilerExtMedoo {
 
 final class SilerExtMedoo extends Medoo
 {
-    public function get($table, $join = null, $columns = null, $where = null): ?object
+    public function get($table, $join = null, $columns = null, $where = null):?\stdClass
     {
         $item = parent::get($table, $join, $columns, $where);
 
