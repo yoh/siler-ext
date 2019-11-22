@@ -60,7 +60,7 @@ final class Validator extends ValitronValidator
 
     public function mapStringFieldsRules(array $rules)
     {
-        $this->mapFieldsRules(array_map(function($fieldRules) {
+        $transformStringToRules = function (string $fieldRules): array {
             return array_map(function($fieldRule) {
                 $split = explode(':', $fieldRule);
                 [$validator, $options] = [$split[0], $split[1] ?? null];
@@ -70,6 +70,14 @@ final class Validator extends ValitronValidator
 
                 return array_merge([$validator], (array) explode(',', $options ?? ''));
             }, explode('|', $fieldRules));
+        };
+
+        $this->mapFieldsRules(array_map(function($fieldRules) use ($transformStringToRules) {
+            $fieldRules = is_string($fieldRules) ? [$fieldRules] : $fieldRules;
+
+            return array_reduce($fieldRules, function($rules, $rule) use ($transformStringToRules) {
+                return array_merge($rules, is_string($rule) ? $transformStringToRules($rule) : [$rule]);
+            }, []);
         }, $rules));
     }
 }
