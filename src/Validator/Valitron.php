@@ -6,7 +6,8 @@ use SilerExt\Exception\ValidationException;
 use Siler\Http\Request;
 use Valitron\Validator as ValitronValidator;
 
-function validate(array $data, array $rules, ?Callable $callback = null): Validator {
+function validate(array $data, array $rules, ?callable $callback = null): Validator
+{
     $locale = null;
     if (in_array('fr', array_keys(Request\accepted_locales()), true)) {
         $locale = 'fr';
@@ -20,16 +21,17 @@ function validate(array $data, array $rules, ?Callable $callback = null): Valida
         $callback($v);
     }
 
-    if(count($v->errors())) {
+    if (count($v->errors())) {
         throw new ValidationException($v->errors());
     }
 
     return $v;
 }
 
-function sanitize($mixed, $filters = FILTER_SANITIZE_SPECIAL_CHARS) {
+function sanitize($mixed, $filters = FILTER_SANITIZE_SPECIAL_CHARS)
+{
     if (is_array($mixed)) {
-        return array_map(function($item) use ($filters) {
+        return array_map(function ($item) use ($filters) {
             return sanitize($item, $filters);
         }, $mixed);
     }
@@ -39,7 +41,8 @@ function sanitize($mixed, $filters = FILTER_SANITIZE_SPECIAL_CHARS) {
 
 final class Validator extends ValitronValidator
 {
-    public function subValidate(string $prefix, array $data, array $rules): void {
+    public function subValidate(string $prefix, array $data, array $rules): void
+    {
         $subV = new self($data);
         $subV->mapStringFieldsRules($rules);
 
@@ -52,7 +55,8 @@ final class Validator extends ValitronValidator
         }
     }
 
-    public function subValidateArray(string $prefix, array $data, array $rules): void {
+    public function subValidateArray(string $prefix, array $data, array $rules): void
+    {
         foreach ($data as $index => $value) {
             $this->subValidate("$prefix.$index", $value, $rules);
         }
@@ -61,7 +65,7 @@ final class Validator extends ValitronValidator
     public function mapStringFieldsRules(array $rules)
     {
         $transformStringToRules = function (string $fieldRules): array {
-            return array_map(function($fieldRule) {
+            return array_map(function ($fieldRule) {
                 $split = explode(':', $fieldRule);
                 [$validator, $options] = [$split[0], $split[1] ?? null];
                 if (is_null($options)) {
@@ -72,10 +76,10 @@ final class Validator extends ValitronValidator
             }, explode('|', $fieldRules));
         };
 
-        $this->mapFieldsRules(array_map(function($fieldRules) use ($transformStringToRules) {
+        $this->mapFieldsRules(array_map(function ($fieldRules) use ($transformStringToRules) {
             $fieldRules = is_string($fieldRules) ? [$fieldRules] : $fieldRules;
 
-            return array_reduce($fieldRules, function($rules, $rule) use ($transformStringToRules) {
+            return array_reduce($fieldRules, function ($rules, $rule) use ($transformStringToRules) {
                 return array_merge($rules, is_string($rule) ? $transformStringToRules($rule) : [$rule]);
             }, []);
         }, $rules));

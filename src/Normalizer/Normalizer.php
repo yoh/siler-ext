@@ -2,11 +2,13 @@
 
 namespace SilerExt\Normalizer;
 
-function normalizeDateTime(?\DateTime $datetime): ?string {
+function normalizeDateTime(?\DateTime $datetime): ?string
+{
     return $datetime ? $datetime->format('c') : null;
 }
 
-function normalizeDate(?\DateTime $datetime): ?string {
+function normalizeDate(?\DateTime $datetime): ?string
+{
     return $datetime ? $datetime->format('Y-m-d') : null;
 }
 

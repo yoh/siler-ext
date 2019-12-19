@@ -10,7 +10,8 @@ use Twig_Extensions_Extension_Text;
 use Whoops\Run as WhoopsRun;
 use Whoops\Handler\PrettyPageHandler as WhoopsPrettyPageHandler;
 
-function config(string $path) {
+function config(string $path)
+{
     $config = Container\get('config');
 
     $result = $config;
@@ -21,11 +22,13 @@ function config(string $path) {
     return $result;
 }
 
-function initConfig(string $filename) {
+function initConfig(string $filename)
+{
     Container\set('config', require_once $filename);
 }
 
-function initTwig() {
+function initTwig()
+{
     $twig_config = config('twig');
 
     $debug = !isset($twig_config['cache_path']);
@@ -35,13 +38,13 @@ function initTwig() {
         $debug
     );
     $twig->addExtension(new Twig_Extensions_Extension_Text());
-    $twig->addFilter(new TwigFilter('firstParagraph', function($data) {
+    $twig->addFilter(new TwigFilter('firstParagraph', function ($data) {
         return explode("\n", $data)[0];
     }));
 
     // add dump functions on debug
     if ($debug) {
-        $twig->addFunction(new TwigFunction('dump', function($data) {
+        $twig->addFunction(new TwigFunction('dump', function ($data) {
             if (function_exists('dump')) {
                 dump($data);
             } else {
@@ -51,7 +54,8 @@ function initTwig() {
     }
 }
 
-function initWhoops(string $editor = 'atom') {
+function initWhoops(string $editor = 'atom')
+{
     $whoops = new WhoopsRun();
     $whoopsHandler = new WhoopsPrettyPageHandler();
     $whoopsHandler->setEditor($editor);

@@ -7,12 +7,14 @@ use Siler\Http\Response;
 use function SilerExt\Config\{config};
 use function Siler\Http\{session as silerSession};
 
-function enableCors(string $origin = '*') {
+function enableCors(string $origin = '*')
+{
     Response\header('Access-Control-Allow-Origin', $origin);
     Response\header('Access-Control-Allow-Headers', 'content-type');
 }
 
-function finishRequest() {
+function finishRequest()
+{
     if (function_exists('fastcgi_finish_request')) {
         fastcgi_finish_request();
     }
@@ -20,7 +22,8 @@ function finishRequest() {
     runBgTasks();
 }
 
-function session(?string $key = null, $default = null, bool $autoClose = true) {
+function session(?string $key = null, $default = null, bool $autoClose = true)
+{
     if (!Container\has("session") && !Container\get("session")) {
         Container\set("session", session_start());
         if ($autoClose) {
@@ -37,7 +40,8 @@ function session(?string $key = null, $default = null, bool $autoClose = true) {
  *     file_put_contents(Helper\config('storage_path') . '/test.'. microtime(true) .'.tmp', json_encode("ok", JSON_NUMERIC_CHECK));
  * });
  */
-function addBgTask(callable $closure) {
+function addBgTask(callable $closure)
+{
     if (!Container\has("bg_task_queue")) {
         Container\set("bg_task_queue", new TaskQueue());
     }
@@ -46,7 +50,8 @@ function addBgTask(callable $closure) {
     $taskQueue->addTask($closure);
 }
 
-function runBgTasks() {
+function runBgTasks()
+{
     if (Container\has("bg_task_queue")) {
         Container\get("bg_task_queue")->runTasks();
     }
