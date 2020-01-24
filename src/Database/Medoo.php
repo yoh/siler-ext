@@ -7,7 +7,8 @@ use Siler\Container;
 use SilerExt\Exception\DbException;
 use function SilerExt\Config\{config};
 
-function medoo($connection = 'default'): SilerExtMedoo {
+function medoo($connection = 'default'): SilerExtMedoo
+{
     if (!Container\has("db.$connection")) {
         $medoo = new SilerExtMedoo(config("db.$connection"));
         $medoo->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
