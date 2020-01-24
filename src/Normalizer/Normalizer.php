@@ -12,11 +12,11 @@ function normalizeDate(?\DateTime $datetime): ?string {
 
 trait NormalizerTrait
 {
-    public static function normalizeArray(array $items = []): array
+    public static function normalizeArray(array $items = [], array $context = []): array
     {
         $normalizedArray = [];
         foreach ($items as $item) {
-            $normalizedArray[] = self::normalize($item);
+            $normalizedArray[] = self::normalize($item, $context);
         }
 
         return $normalizedArray;
