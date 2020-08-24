@@ -6,11 +6,11 @@ class AuthenticationException extends \Exception
 {
     private $nbTry;
 
-    public function __construct(int $nbTry)
+    public function __construct(int $nbTry = 1, string $message = 'invalid credentials')
     {
         $this->nbTry = $nbTry;
 
-        parent::__construct('invalid credentials');
+        parent::__construct($message);
     }
 
     public function getNbTry(): int

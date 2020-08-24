@@ -11,7 +11,7 @@ function enableCors(string $origin = '*')
 {
     Response\header('Access-Control-Allow-Origin', $origin);
     Response\header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-    Response\header('Access-Control-Allow-Headers', 'content-type');
+    Response\header('Access-Control-Allow-Headers', 'content-type,Authorization');
     Response\header('Access-Control-Allow-Credentials', 'true');
 }
 
